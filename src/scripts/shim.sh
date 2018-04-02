@@ -6,6 +6,7 @@ if [ -z $current_version ]; then
   exit
 fi
 
-executable_path="~/.mtenv/versions/$current_version/bin/myst"
+executable_path="$HOME/.mtenv/versions/$current_version/bin/myst"
 
-`$executable_path $@`
+# Proxy all arguments to the real executable
+$executable_path $@
