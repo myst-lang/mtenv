@@ -29,8 +29,23 @@ class MTENV
 
         # Create mtenv-controlled shims for the Myst binary.
         puts "Linking shims to #{shims_location}"
-        myst_path = File.join(shims_location, "myst")
-        File.symlink(File.expand_path("~/.mtenv/shims/myst"), myst_path)
+        myst_shim_path = File.expand_path("~/.mtenv/shims/myst")
+        myst_install_path = File.join(shims_location, "myst")
+        case
+        when File.symlink?(myst_install_path)
+          existing_path = File.real_path(myst_install_path)
+          if existing_path != myst_shim_path
+            STDERR.puts "`myst` already exists in #{shims_location} and points to #{existing_path}"
+            STDERR.puts "Remove it and re-run this setup to allow `mtenv` to install a new shim."
+            exit(1)
+          end
+        when File.exists?(myst_install_path)
+          STDERR.puts "`myst` already exists in #{shims_location} as a plain file."
+          STDERR.puts "Remove it and re-run this setup to allow `mtenv` to install a new shim."
+          exit(1)
+        else
+          File.symlink(myst_shim_path, myst_install_path)
+        end
       end
 
       puts "\nmtenv setup finished successfully."
