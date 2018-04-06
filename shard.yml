@@ -16,3 +16,4 @@ targets:
 dependencies:
   admiral:
     github: jwaldrip/admiral.cr
+    version: 1.4.0
