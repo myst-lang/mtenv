@@ -6,13 +6,13 @@
 
 # Installation
 
-For platforms with a pre-built binary (see the [releases page](https://github.com/myst-lang/mtenv/releases/tag/v0.0.1) to find these), simply download the binary, place it on your `PATH` and you're good to go!
+For platforms with a pre-built binary (see the [releases page](https://github.com/myst-lang/mtenv/releases) to find these), simply download the binary, place it on your `PATH` and you're good to go!
 
 ```shell
 # macOS example:
-curl -o mtenv https://github.com/myst-lang/mtenv/releases/download/v0.0.1/mtenv-macos-10.12
+curl -Lo mtenv https://github.com/myst-lang/mtenv/releases/download/v0.0.1/mtenv-v0.0.3-macos-10.13.2
+chmod +x mtenv
 cp ./mtenv /usr/local/bin/mtenv
-chmod +x /usr/local/bin/mtenv
 ```
 
 For other platforms, you'll need to compile from source. To do so, you can clone this repository and run `shards build`, then move the compiled binary onto your $PATH.
