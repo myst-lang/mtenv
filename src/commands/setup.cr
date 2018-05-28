@@ -13,23 +13,23 @@ class MTENV
       shims_location = ask_for_shims_location!
       # Ensure the `.mtenv` dir exists in the home directory and has all of the
       # necessary components (versions, global, shims, etc.).
-      FileUtils.cd(ENV["HOME"]) do
-        puts "Initializing `~/.mtenv/`"
-        FileUtils.mkdir_p(".mtenv/versions")
-        FileUtils.touch(".mtenv/global")
-        FileUtils.mkdir_p(".mtenv/shims")
+      FileUtils.cd(MTENV.home) do
+	puts "Initializing `#{MTENV.home}`"
+        FileUtils.mkdir_p("versions")
+        FileUtils.touch("global")
+        FileUtils.mkdir_p("shims")
         # Store the shims location for use in the future (e.g., `implode`).
-        File.write(".mtenv/shims_dir", shims_location)
+        File.write("shims_dir", shims_location)
 
         puts "Creating shims"
-        File.open(".mtenv/shims/myst", mode: "w", perm: 0o755) do |f|
+        File.open("shims/myst", mode: "w", perm: 0o755) do |f|
           f.truncate
           f.puts(MYST_SHIM)
         end
 
         # Create mtenv-controlled shims for the Myst binary.
         puts "Linking shims to #{shims_location}"
-        myst_shim_path = File.expand_path("~/.mtenv/shims/myst")
+	myst_shim_path = File.expand_path(MTENV.home)
         myst_install_path = File.join(shims_location, "myst")
         case
         when File.symlink?(myst_install_path)

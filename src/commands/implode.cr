@@ -9,7 +9,7 @@ class MTENV
         abort "#{MTENV.home} does not exist. Cannot ensure implosion."
       end
 
-      shims_path = File.read(File.expand_path("~/.mtenv/shims_dir"))
+      shims_path = File.read(File.expand_path(MTENV.from_home("shims_dir")))
       puts ". Removing links to shims from #{shims_path}"
       FileUtils.rm(File.join(shims_path, "myst"))
 
