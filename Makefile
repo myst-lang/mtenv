@@ -24,6 +24,7 @@ ifdef CRFLAGS
 bin/mtenv: phony
 endif
 bin/mtenv: $(SOURCES) lib
+	mkdir -p bin
 	crystal build $(CRFLAGS) -o $@ src/mtenv.cr
 
 ifneq ($(shell [ -f shard.lock ] && echo exists),)
