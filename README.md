@@ -37,7 +37,7 @@ Once `mtenv` is on your `PATH`, the installation is complete.
 
 ### Initial setup
 
-When first installing `mtenv`, run `mtenv setup` to initialize the `~/.mtenv` directory and install the shims.
+When first installing `mtenv`, run `mtenv setup` to initialize the `~/.mtenv` (or `MTENV_HOME` if set) directory and install the shims.
 
 ```shell
 mtenv setup
@@ -45,8 +45,8 @@ mtenv setup
 
 `mtenv setup` will:
 
-  - ensure that `~/.mtenv/` exists and add some basic configuration.
-  - create `/usr/local/bin/myst` as a symlink to `~/.mtenv/shims/myst`, the executable that `mtenv` manages to control `myst` versions.
+  - Ensure that `~/.mtenv/` (or `MYST_HOME` if set) exists and add some basic configuration.
+  - Prompt for where to put the the executable that `mtenv` manages to control `myst` versions, i.e. a directory in your PATH.
 
 Now you are fully set up to use `mtenv` and install new versions of Myst.
 
