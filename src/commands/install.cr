@@ -19,7 +19,7 @@ class MTENV
 
       tarball = Tempfile.new("myst-#{version_name}", ".tar.gz")
       if download_version_tarball(arguments.version, to: tarball.path)
-        install_location = File.expand_path("~/.mtenv/versions/#{version_name}")
+        install_location = MTENV.from_home("versions/#{version_name}")
         FileUtils.mkdir_p(install_location)
         unpack_tarball(tarball.path, to: install_location)
         build_executable(install_location)

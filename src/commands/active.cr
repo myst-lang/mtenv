@@ -3,7 +3,7 @@ class MTENV
     define_help description: "Show the currently-active Myst version."
 
     def run
-      active_version = `cat #{File.expand_path("~/.mtenv/global")}`
+      active_version = `cat #{MTENV.from_home "global"}`
       if active_version.empty?
         puts "No Myst version is currently active."
       else

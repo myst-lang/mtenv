@@ -4,9 +4,9 @@ module Util
   # Determine whether the system is set up to run `mtenv`. If it is not, abort
   # execution and inform the user of their installation problems.
   def require_setup!
-    Dir.exists?(File.expand_path("~/.mtenv")) || fail_setup!("`~/.mtenv/` directory does not exist.")
-    Dir.exists?(File.expand_path("~/.mtenv/versions")) || fail_setup!("`~/.mtenv/installs` directory does not exist.")
-    File.exists?(File.expand_path("~/.mtenv/shims_dir")) || fail_setup!("`~/.mtenv/shims_dir` reference file does not exist.")
+    Dir.exists?(MTENV.home) || fail_setup!("`#{MTENV.home}` directory does not exist.")
+    Dir.exists?(MTENV.from_home("versions")) || fail_setup!("`#{MTENV.from_home("versions")}` directory does not exist.")
+    File.exists?(MTENV.from_home("shims_dir")) || fail_setup!("`#{MTENV.from_home("shims_dir")}` reference file does not exist.")
   end
 
 

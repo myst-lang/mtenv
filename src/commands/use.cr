@@ -7,13 +7,13 @@ class MTENV
                     required: true
 
     def run
-      version_path = File.expand_path("~/.mtenv/versions/#{arguments.version}")
+      version_path = MTENV.from_home("versions/#{arguments.version}")
 
       unless Dir.exists?(version_path)
         abort "Version #{arguments.version} is not currently installed."
       end
 
-      File.open(File.expand_path("~/.mtenv/global"), "w") do |f|
+      File.open(MTENV.from_home("global"), "w") do |f|
         f.truncate
         f.print(arguments.version)
       end

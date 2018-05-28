@@ -9,7 +9,7 @@ class MTENV
                     required: true
 
     def run
-      version_path = File.expand_path("~/.mtenv/versions/#{arguments.version}")
+      version_path = MTENV.from_home("versions/#{arguments.version}")
       if Dir.exists?(version_path)
         puts "Uninstalling '#{arguments.version}'"
         FileUtils.rm_r(version_path)
