@@ -45,7 +45,7 @@ mtenv setup
 
 `mtenv setup` will:
 
-  - Ensure that `~/.mtenv/` (or `MYST_HOME` if set) exists and add some basic configuration.
+  - Ensure that `~/.mtenv/` (or `MTENV_HOME` if set) exists and add some basic configuration.
   - Prompt for where to put the the executable that `mtenv` manages to control `myst` versions, i.e. a directory in your PATH.
 
 Now you are fully set up to use `mtenv` and install new versions of Myst.
