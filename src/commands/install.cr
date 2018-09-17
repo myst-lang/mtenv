@@ -28,7 +28,7 @@ class MTENV
         exit(1)
       end
 
-      tarball.unlink
+      tarball.delete
     end
 
     def version_name
