@@ -10,7 +10,7 @@ For platforms with a pre-built binary (see the [releases page](https://github.co
 
 ```shell
 # macOS example:
-curl -Lo mtenv https://github.com/myst-lang/mtenv/releases/download/v0.0.1/mtenv-v0.0.3-macos-10.13.2
+curl -Lo mtenv https://github.com/myst-lang/mtenv/releases/download/v0.0.3/mtenv-v0.0.3-macos-10.13.2
 chmod +x mtenv
 cp ./mtenv /usr/local/bin/mtenv
 ```
