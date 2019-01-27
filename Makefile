@@ -11,23 +11,29 @@ DESTDIR :=
 PREFIX  := /usr/local/
 BINDIR  := $(DESTDIR)/$(PREFIX)/bin/
 SOURCES := $(shell $(FIND) src -type f -name '*.cr' 2>&-||:)
+BUILDDIR:= $(DESTDIR)bin/
+MTENV   := $(BUILDDIR)mtenv
 
 release ?=
 
 CRFLAGS += $(if $(release),--release --no-debug,)
 
-all: bin/mtenv
+all: $(MTENV)
 
-install: bin/mtenv phony
+install: $(MTENV) phony
 	mkdir -p $(BINDIR)
-	$(INSTALL) --mode=755 bin/mtenv $(BINDIR)
+	$(INSTALL) --mode=755 $(MTENV) $(BINDIR)
 
 uninstall: phony
-	rm -f $(BINDIR)/mtenv
+	if [ -f $(BINDIR)mtenv ]; then; \
+		rm -f $(BINDIR)mtenv; \
+	else; \
+		echo "No installed mtenv found! (Looked in $(BINDIR))"; \
+	fi
 
-bin/mtenv: $(SOURCES) lib
-	mkdir -p bin
-	crystal build $(CRFLAGS) -o $@ src/mtenv.cr
+$(MTENV): $(SOURCES) lib
+	mkdir -p $$(dirname $(MTENV))
+	$(strip crystal build $(CRFLAGS) -o $@ src/mtenv.cr)
 
 ifneq ($(shell [ -f shard.lock ] && echo exists),)
 lib: shard.lock
@@ -39,13 +45,18 @@ lib: shard.yml
 shard.lock: phony
 
 check: phony
-	@test -f bin/mtenv || (echo 'No executable found!' && exit 1)
-	@echo 'All looks good.'
+	@test -x $(MTENV) || (echo 'No executable found!' && exit 1)
 
 clean: phony
-	rm -f bin/mtenv
+	rm -f $(MTENV)
 
 touch:
 	touch src/mtenv.cr
+
+help:
+	@echo -e "all:\t\t Build $(MTENV)"
+	@echo -e "install:\t Install mtenv to $(BINDIR)mtenv"
+	@echo -e "uninstall:\t Uninstall mtenv"
+	@echo -e "clean:\t\t Delete built files"
 
 phony:

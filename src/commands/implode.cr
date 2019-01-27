@@ -24,8 +24,7 @@ class MTENV
       puts "Are you sure you want to completely uninstall mtenv? This cannot be undone."
       puts "The `mtenv` command will remain installed, but all installations will be lost."
       puts "Type 'implode' to confirm your intent."
-      print "> "
-      unless (confirmation = gets) && confirmation == "implode"
+      unless (confirmation = Readline.readline("> ")) && confirmation == "implode"
         abort("Not uninstalling. Confirmation did not match 'implode'.")
       end
     end

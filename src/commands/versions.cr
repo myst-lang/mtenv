@@ -3,7 +3,7 @@ class MTENV
     define_help description: "List all currently-installed Myst versions."
 
     def run
-      Process.exec("ls", [MTENV.from_home("versions")])
+      puts `ls #{MTENV.from_home("versions")}`
     end
   end
 

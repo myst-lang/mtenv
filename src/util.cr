@@ -26,16 +26,23 @@ module Util
       #  v12.52.12
       /^v\d+\.\d+\.\d+$/,
       # commit SHAs (must be at least 7 characters long)
+      #  546c2877be8b58a668bd724a936a55c2c80e0308
       /^[0-9a-fA-F]{7,40}$/
     ].any?{ |re| re.match(version) } || false
   end
 
-
-  private def fail_setup!(message)
-    STDERR.puts("Setup check failed! Cause:")
+  def fail!(message)
     STDERR.puts(message)
-    STDERR.puts("\n`mtenv` requires a valid setup to run.")
-    STDERR.puts("Run `mtenv setup` to attempt an automatic fix.")
     exit(1)
+  end
+
+  def fail_setup!(message)
+    fail! <<-MSG
+      Setup check failed! Cause:
+      #{message}
+
+      `mtenv` requires a valid setup to run.
+      Run `mtenv setup` to attempt an automatic fix.
+    MSG
   end
 end

@@ -2,7 +2,7 @@ require "file_utils"
 
 class MTENV
   class Uninstall < Admiral::Command
-    define_help description: "List all currently-installed Myst versions."
+    define_help description: "Uninstall specified myst version"
 
     define_argument version : String,
                     description: "The name of the version to uninstall",
