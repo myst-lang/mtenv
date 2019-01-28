@@ -31,9 +31,8 @@ module Util
     ].any?{ |re| re.match(version) } || false
   end
 
-  def fail!(message)
-    STDERR.puts(message)
-    exit(1)
+  def fail!(message, status=1)
+    abort message, status
   end
 
   def fail_setup!(message)
