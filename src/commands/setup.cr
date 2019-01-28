@@ -72,7 +72,7 @@ class MTENV
       if (path = flags.shims_dir)
         path = File.expand_path path
         (Dir.exists? path)    || Util.fail! "Passed shims-dir does not exist!"
-     ###(File.writable? path) || Util.fail! "mtenv lacks write access to shims-dir" # TODO: Find out whether or not to include this check
+        (File.writable? path) || Util.fail! "mtenv lacks write access to shims-dir"
         return path
       end
 
@@ -84,12 +84,11 @@ class MTENV
       end
 
       location = File.expand_path(location)
-      # TODO: See previous TODO, the check should be the same both places
-      if Dir.exists?(location)
-        return location
-      else
-        abort "Requested shims location `#{location}` does not exist. Aborting setup."
-      end
+
+      (Dir.exists?    location) || Util.fail! "Requested shims location `#{location}` does not exist. Aborting setup."
+      (File.writable? location) || Util.fail! "mtenv lacks write access to shims-dir (#{location})"
+
+      return location
     end
   end
 
