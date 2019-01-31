@@ -1,5 +1,3 @@
-require "tempfile"
-
 class MTENV
   class Install < Admiral::Command
     define_help description: "Install a new version of Myst."
@@ -17,30 +15,29 @@ class MTENV
       Util.require_setup!
       validate_version!
 
-      tarball = Tempfile.new("myst-#{version_name}", ".tar.gz")
+      tarball = File.tempfile("myst-#{version_name}", ".tar.gz")
       if download_version_tarball(arguments.version, to: tarball.path)
-        install_location = File.expand_path("~/.mtenv/versions/#{version_name}")
+        install_location = MTENV.from_home("versions/#{version_name}")
         FileUtils.mkdir_p(install_location)
         unpack_tarball(tarball.path, to: install_location)
         build_executable(install_location)
       else
-        STDERR.puts "Could not find a Myst version matching '#{arguments.version}'."
-        exit(1)
+        abort "Could not find a Myst version matching '#{arguments.version}'."
       end
 
-      tarball.unlink
+      tarball.delete
     end
 
     def version_name
       arguments.name || arguments.version
     end
 
-
     private def validate_version!
       unless Util.versionish?(arguments.version)
-        STDERR.puts "'#{arguments.version}' is not a valid version identifier."
-        STDERR.puts "Versions must be given as either SemVer numbers (vX.X.X) or commit SHAs"
-        exit(1)
+        abort <<-MSG
+          '#{arguments.version}' is not a valid version identifier.
+          Versions must be given as either SemVer numbers (vX.X.X) or git commit SHAs
+        MSG
       end
     end
 
